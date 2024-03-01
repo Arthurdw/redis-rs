@@ -2,8 +2,7 @@ use std::error::Error;
 use std::io::{Read, Write};
 use std::net::{TcpListener, TcpStream};
 use std::str;
-
-// This was the same as my second stage but I believe it suffices here too.
+use std::thread;
 
 fn handle_message(_message: &str) -> &str {
     "+PONG\r\n"
@@ -31,11 +30,11 @@ fn main() {
     let listener = TcpListener::bind("127.0.0.1:6379").unwrap();
 
     for stream in listener.incoming() {
-        match stream {
+        thread::spawn(|| match stream {
             Ok(stream) => handle_connetion(stream).expect("Something went wrong in the connection"),
             Err(e) => {
                 println!("error: {}", e);
             }
-        }
+        });
     }
 }
