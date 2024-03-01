@@ -3,6 +3,8 @@ use std::io::{Read, Write};
 use std::net::{TcpListener, TcpStream};
 use std::str;
 
+// This was the same as my second stage but I believe it suffices here too.
+
 fn handle_message(_message: &str) -> &str {
     "+PONG\r\n"
 }
